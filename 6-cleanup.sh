@@ -1,13 +1,14 @@
 #!/bin/bash
 set -eo pipefail
-aws cloudformation delete-stack --stack-name scorekeep
+STACK_NAME=$(cat stack-name.txt)
+aws cloudformation delete-stack --stack-name $STACK_NAME
 echo "Deleted function stack"
 if [ -f bucket-name.txt ]; then
     ARTIFACT_BUCKET=$(cat bucket-name.txt)
     while true; do
         read -p "Delete deployment artifacts and bucket ($ARTIFACT_BUCKET)?" response
         case $response in
-            [Yy]* ) aws s3 rb --force s3://$ARTIFACT_BUCKET; rm bucket-name.txt; break;;
+            [Yy]* ) aws s3 rb --force s3://$ARTIFACT_BUCKET; rm bucket-name.txt; rm stack-name.txt; break;;
             [Nn]* ) break;;
             * ) echo "Response must start with y or n.";;
         esac
