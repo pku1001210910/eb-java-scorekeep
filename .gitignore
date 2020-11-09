@@ -10,3 +10,7 @@ bucket-name.txt
 !bin/*.sh
 lib
 out.yml
+.classpath
+.project
+.settings
+bin/
