@@ -15,3 +15,4 @@ out.yml
 .project
 .settings
 bin/
+.vscode/
